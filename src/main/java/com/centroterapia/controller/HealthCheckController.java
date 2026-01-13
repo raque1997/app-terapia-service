@@ -14,7 +14,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/test")
-public class HealthCheck {
+public class HealthCheckController {
 
     @Autowired
     private DataSource dataSource;
