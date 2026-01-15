@@ -1,10 +1,12 @@
-package com.centroterapia.model;
+package com.centroterapia.model.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.centroterapia.model.Paciente;
+import com.centroterapia.model.Usuario;
 
 import java.time.LocalDateTime;
 
@@ -13,7 +15,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Cita {
+public class CitaEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -76,4 +78,3 @@ public class Cita {
         NO_ASISTIO
     }
 }
-

@@ -1,6 +1,6 @@
 package com.centroterapia.controller;
 
-import com.centroterapia.model.Cita;
+import com.centroterapia.model.entity.CitaEntity;
 import com.centroterapia.service.CitaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,33 +21,33 @@ public class CitaController {
     private CitaService citaService;
 
     @GetMapping
-    public ResponseEntity<List<Cita>> getAllCitas() {
+    public ResponseEntity<List<CitaEntity>> getAllCitas() {
         return ResponseEntity.ok(citaService.getAllCitas());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Cita> getCitaById(@PathVariable Long id) {
+    public ResponseEntity<CitaEntity> getCitaById(@PathVariable Long id) {
         return citaService.getCitaById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/proximas")
-    public ResponseEntity<List<Cita>> getProximasCitas() {
+    public ResponseEntity<List<CitaEntity>> getProximasCitas() {
         return ResponseEntity.ok(citaService.getProximasCitas());
     }
 
     @GetMapping("/rango")
-    public ResponseEntity<List<Cita>> getCitasByRango(
+    public ResponseEntity<List<CitaEntity>> getCitasByRango(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime inicio,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fin) {
         return ResponseEntity.ok(citaService.getCitasByFechaRange(inicio, fin));
     }
 
     @PostMapping
-    public ResponseEntity<?> createCita(@Valid @RequestBody Cita cita) {
+    public ResponseEntity<?> createCita(@Valid @RequestBody CitaEntity cita) {
         try {
-            Cita nuevaCita = citaService.createCita(cita);
+            CitaEntity nuevaCita = citaService.createCita(cita);
             return ResponseEntity.status(HttpStatus.CREATED).body(nuevaCita);
         } catch (Exception e) {
             e.printStackTrace(); // Log del error en consola
@@ -57,9 +57,9 @@ public class CitaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cita> updateCita(
+    public ResponseEntity<CitaEntity> updateCita(
             @PathVariable Long id,
-            @Valid @RequestBody Cita cita) {
+            @Valid @RequestBody CitaEntity cita) {
         return citaService.updateCita(id, cita)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

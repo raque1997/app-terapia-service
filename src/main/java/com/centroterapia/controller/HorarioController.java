@@ -1,6 +1,6 @@
 package com.centroterapia.controller;
 
-import com.centroterapia.model.Horario;
+import com.centroterapia.model.entity.HorarioEntity;
 import com.centroterapia.service.HorarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,24 +20,24 @@ public class HorarioController {
     private HorarioService horarioService;
 
     @GetMapping
-    public ResponseEntity<List<Horario>> getAllHorarios() {
+    public ResponseEntity<List<HorarioEntity>> getAllHorarios() {
         return ResponseEntity.ok(horarioService.getAllHorarios());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Horario> getHorarioById(@PathVariable Long id) {
+    public ResponseEntity<HorarioEntity> getHorarioById(@PathVariable Long id) {
         return horarioService.getHorarioById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/disponibles")
-    public ResponseEntity<List<Horario>> getHorariosDisponibles() {
+    public ResponseEntity<List<HorarioEntity>> getHorariosDisponibles() {
         return ResponseEntity.ok(horarioService.getHorariosDisponibles());
     }
 
     @GetMapping("/dia/{dia}")
-    public ResponseEntity<List<Horario>> getHorariosByDia(@PathVariable String dia) {
+    public ResponseEntity<List<HorarioEntity>> getHorariosByDia(@PathVariable String dia) {
         try {
             DayOfWeek dayOfWeek = DayOfWeek.valueOf(dia.toUpperCase());
             return ResponseEntity.ok(horarioService.getHorariosByDia(dayOfWeek));
@@ -47,15 +47,15 @@ public class HorarioController {
     }
 
     @PostMapping
-    public ResponseEntity<Horario> createHorario(@Valid @RequestBody Horario horario) {
-        Horario nuevoHorario = horarioService.createHorario(horario);
+    public ResponseEntity<HorarioEntity> createHorario(@Valid @RequestBody HorarioEntity horario) {
+        HorarioEntity nuevoHorario = horarioService.createHorario(horario);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevoHorario);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Horario> updateHorario(
+    public ResponseEntity<HorarioEntity> updateHorario(
             @PathVariable Long id,
-            @Valid @RequestBody Horario horario) {
+            @Valid @RequestBody HorarioEntity horario) {
         return horarioService.updateHorario(id, horario)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

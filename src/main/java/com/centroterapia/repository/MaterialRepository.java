@@ -1,6 +1,6 @@
 package com.centroterapia.repository;
 
-import com.centroterapia.model.Material;
+import com.centroterapia.model.entity.MaterialEntity;
 import com.centroterapia.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -8,16 +8,16 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MaterialRepository extends JpaRepository<Material, Long> {
+public interface MaterialRepository extends JpaRepository<MaterialEntity, Long> {
     
-    List<Material> findByCategoria(Material.Categoria categoria);
+    List<MaterialEntity> findByCategoria(MaterialEntity.Categoria categoria);
     
-    List<Material> findBySubidoPor(Usuario usuario);
+    List<MaterialEntity> findBySubidoPor(Usuario usuario);
     
-    List<Material> findByVisiblePublicoTrue();
+    List<MaterialEntity> findByVisiblePublicoTrue();
     
-    List<Material> findByTituloContainingIgnoreCase(String titulo);
+    List<MaterialEntity> findByTituloContainingIgnoreCase(String titulo);
     
-    List<Material> findByCategoriaAndVisiblePublicoTrue(Material.Categoria categoria);
+    List<MaterialEntity> findByCategoriaAndVisiblePublicoTrue(MaterialEntity.Categoria categoria);
 }
 

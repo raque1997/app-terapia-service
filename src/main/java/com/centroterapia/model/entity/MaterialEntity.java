@@ -1,4 +1,4 @@
-package com.centroterapia.model;
+package com.centroterapia.model.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Material {
+public class MaterialEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +44,7 @@ public class Material {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subido_por")
-    private Usuario subidoPor;
+    private com.centroterapia.model.Usuario subidoPor;
 
     @Column(name = "visible_publico")
     private Boolean visiblePublico = true;
@@ -66,4 +66,3 @@ public class Material {
         OTROS
     }
 }
-

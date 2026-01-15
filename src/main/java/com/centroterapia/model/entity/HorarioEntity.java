@@ -1,9 +1,10 @@
-package com.centroterapia.model;
+package com.centroterapia.model.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.centroterapia.model.Usuario;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
@@ -13,7 +14,7 @@ import java.time.LocalTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Horario {
+public class HorarioEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,4 +40,3 @@ public class Horario {
     @Column(name = "duracion_sesion")
     private Integer duracionSesion = 60; // en minutos
 }
-

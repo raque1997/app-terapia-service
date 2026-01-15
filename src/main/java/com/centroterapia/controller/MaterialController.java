@@ -1,6 +1,6 @@
 package com.centroterapia.controller;
 
-import com.centroterapia.model.Material;
+import com.centroterapia.model.entity.MaterialEntity;
 import com.centroterapia.service.MaterialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -26,27 +26,27 @@ public class MaterialController {
     private MaterialService materialService;
 
     @GetMapping
-    public ResponseEntity<List<Material>> getAllMateriales() {
+    public ResponseEntity<List<MaterialEntity>> getAllMateriales() {
         return ResponseEntity.ok(materialService.getAllMateriales());
     }
 
     @GetMapping("/publicos")
-    public ResponseEntity<List<Material>> getMaterialesPublicos() {
+    public ResponseEntity<List<MaterialEntity>> getMaterialesPublicos() {
         return ResponseEntity.ok(materialService.getMaterialesPublicos());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Material> getMaterialById(@PathVariable Long id) {
+    public ResponseEntity<MaterialEntity> getMaterialById(@PathVariable Long id) {
         return materialService.getMaterialById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/categoria/{categoria}")
-    public ResponseEntity<List<Material>> getMaterialesByCategoria(
+    public ResponseEntity<List<MaterialEntity>> getMaterialesByCategoria(
             @PathVariable String categoria) {
         try {
-            Material.Categoria cat = Material.Categoria.valueOf(categoria.toUpperCase());
+            MaterialEntity.Categoria cat = MaterialEntity.Categoria.valueOf(categoria.toUpperCase());
             return ResponseEntity.ok(materialService.getMaterialesByCategoria(cat));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().build();
@@ -54,20 +54,20 @@ public class MaterialController {
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Material> uploadMaterial(
+    public ResponseEntity<MaterialEntity> uploadMaterial(
             @RequestParam("file") MultipartFile file,
             @RequestParam("titulo") String titulo,
             @RequestParam(value = "descripcion", required = false) String descripcion,
             @RequestParam("categoria") String categoria,
             @RequestParam(value = "visiblePublico", defaultValue = "true") Boolean visiblePublico) {
         try {
-            Material material = new Material();
+            MaterialEntity material = new MaterialEntity();
             material.setTitulo(titulo);
             material.setDescripcion(descripcion);
-            material.setCategoria(Material.Categoria.valueOf(categoria.toUpperCase()));
+            material.setCategoria(MaterialEntity.Categoria.valueOf(categoria.toUpperCase()));
             material.setVisiblePublico(visiblePublico);
 
-            Material nuevoMaterial = materialService.uploadMaterial(material, file);
+            MaterialEntity nuevoMaterial = materialService.uploadMaterial(material, file);
             return ResponseEntity.status(HttpStatus.CREATED).body(nuevoMaterial);
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -77,7 +77,7 @@ public class MaterialController {
     @GetMapping("/descargar/{id}")
     public ResponseEntity<Resource> descargarMaterial(@PathVariable Long id) {
         try {
-            Material material = materialService.getMaterialById(id)
+            MaterialEntity material = materialService.getMaterialById(id)
                     .orElseThrow(() -> new RuntimeException("Material no encontrado"));
 
             Path filePath = Paths.get(material.getRutaArchivo());
@@ -98,9 +98,9 @@ public class MaterialController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Material> updateMaterial(
+    public ResponseEntity<MaterialEntity> updateMaterial(
             @PathVariable Long id,
-            @RequestBody Material material) {
+            @RequestBody MaterialEntity material) {
         return materialService.updateMaterial(id, material)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
