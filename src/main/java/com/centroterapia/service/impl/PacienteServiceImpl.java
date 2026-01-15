@@ -1,6 +1,6 @@
 package com.centroterapia.service.impl;
 
-import com.centroterapia.model.Paciente;
+import com.centroterapia.model.entity.PacienteEntity;
 import com.centroterapia.repository.PacienteRepository;
 import com.centroterapia.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,22 +16,22 @@ public class PacienteServiceImpl implements PacienteService {
     private PacienteRepository pacienteRepository;
 
     @Override
-    public List<Paciente> getAllPacientes() {
+    public List<PacienteEntity> getAllPacientes() {
         return pacienteRepository.findAll();
     }
 
     @Override
-    public Optional<Paciente> getPacienteById(Long id) {
+    public Optional<PacienteEntity> getPacienteById(Long id) {
         return pacienteRepository.findById(id);
     }
 
     @Override
-    public Paciente createPaciente(Paciente paciente) {
+    public PacienteEntity createPaciente(PacienteEntity paciente) {
         return pacienteRepository.save(paciente);
     }
 
     @Override
-    public Optional<Paciente> updatePaciente(Long id, Paciente pacienteDetails) {
+    public Optional<PacienteEntity> updatePaciente(Long id, PacienteEntity pacienteDetails) {
         return pacienteRepository.findById(id)
                 .map(paciente -> {
                     paciente.setNombre(pacienteDetails.getNombre());
@@ -57,7 +57,7 @@ public class PacienteServiceImpl implements PacienteService {
     }
 
     @Override
-    public List<Paciente> searchPacientes(String query) {
+    public List<PacienteEntity> searchPacientes(String query) {
         return pacienteRepository.findByNombreContainingIgnoreCaseOrApellidosContainingIgnoreCase(
                 query, query);
     }

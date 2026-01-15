@@ -5,8 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.centroterapia.model.Paciente;
-import com.centroterapia.model.Usuario;
 
 import java.time.LocalDateTime;
 
@@ -24,11 +22,11 @@ public class CitaEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "paciente_id", nullable = false)
     @NotNull(message = "El paciente es obligatorio")
-    private Paciente paciente;
+    private PacienteEntity paciente;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "terapeuta_id")
-    private Usuario terapeuta;
+    private UsuarioEntity terapeuta;
 
     @Column(name = "fecha_hora", nullable = false)
     @NotNull(message = "La fecha y hora son obligatorias")

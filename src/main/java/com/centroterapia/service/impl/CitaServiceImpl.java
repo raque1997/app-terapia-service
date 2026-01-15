@@ -1,8 +1,8 @@
-package com.centroterapia.impl;
+package com.centroterapia.service.impl;
 
 import com.centroterapia.model.entity.CitaEntity;
-import com.centroterapia.model.Paciente;
-import com.centroterapia.model.Usuario;
+import com.centroterapia.model.entity.PacienteEntity;
+import com.centroterapia.model.entity.UsuarioEntity;
 import com.centroterapia.repository.CitaRepository;
 import com.centroterapia.service.CitaService;
 import com.centroterapia.service.EmailService;
@@ -33,12 +33,12 @@ public class CitaServiceImpl implements CitaService {
     }
 
     @Override
-    public List<CitaEntity> getCitasByPaciente(Paciente paciente) {
+    public List<CitaEntity> getCitasByPaciente(PacienteEntity paciente) {
         return citaRepository.findByPaciente(paciente);
     }
 
     @Override
-    public List<CitaEntity> getCitasByTerapeuta(Usuario terapeuta) {
+    public List<CitaEntity> getCitasByTerapeuta(UsuarioEntity terapeuta) {
         return citaRepository.findByTerapeuta(terapeuta);
     }
 
@@ -104,7 +104,7 @@ public class CitaServiceImpl implements CitaService {
     }
 
     @Override
-    public boolean verificarDisponibilidad(Usuario terapeuta, LocalDateTime fechaHora) {
+    public boolean verificarDisponibilidad(UsuarioEntity terapeuta, LocalDateTime fechaHora) {
         return !citaRepository.existsByTerapeutaAndFechaHoraAndEstadoNot(
                 terapeuta, fechaHora, CitaEntity.EstadoCita.CANCELADA);
     }

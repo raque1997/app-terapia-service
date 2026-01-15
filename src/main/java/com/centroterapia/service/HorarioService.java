@@ -1,7 +1,7 @@
 package com.centroterapia.service;
 
 import com.centroterapia.model.entity.HorarioEntity;
-import com.centroterapia.model.Usuario;
+import com.centroterapia.model.entity.UsuarioEntity;
 
 import java.time.DayOfWeek;
 import java.util.List;
@@ -12,7 +12,7 @@ public interface HorarioService {
     Optional<HorarioEntity> getHorarioById(Long id);
     List<HorarioEntity> getHorariosDisponibles();
     List<HorarioEntity> getHorariosByDia(DayOfWeek dia);
-    List<HorarioEntity> getHorariosByTerapeuta(Usuario terapeuta);
+    List<HorarioEntity> getHorariosByTerapeuta(UsuarioEntity terapeuta);
     HorarioEntity createHorario(HorarioEntity horario);
     Optional<HorarioEntity> updateHorario(Long id, HorarioEntity horarioDetails);
     boolean deleteHorario(Long id);

@@ -44,7 +44,7 @@ public class MaterialEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subido_por")
-    private com.centroterapia.model.Usuario subidoPor;
+    private UsuarioEntity subidoPor;
 
     @Column(name = "visible_publico")
     private Boolean visiblePublico = true;

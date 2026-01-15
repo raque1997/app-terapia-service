@@ -1,6 +1,6 @@
 package com.centroterapia.repository;
 
-import com.centroterapia.model.Usuario;
+import com.centroterapia.model.entity.UsuarioEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,15 +8,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
     
-    Optional<Usuario> findByUsername(String username);
+    Optional<UsuarioEntity> findByUsername(String username);
     
-    Optional<Usuario> findByEmail(String email);
+    Optional<UsuarioEntity> findByEmail(String email);
     
-    List<Usuario> findByRol(Usuario.Rol rol);
+    List<UsuarioEntity> findByRol(UsuarioEntity.Rol rol);
     
-    List<Usuario> findByActivoTrue();
+    List<UsuarioEntity> findByActivoTrue();
     
     boolean existsByUsername(String username);
     

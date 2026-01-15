@@ -1,4 +1,4 @@
-package com.centroterapia.model;
+package com.centroterapia.model.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Paciente {
+public class PacienteEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,4 +55,3 @@ public class Paciente {
         createdAt = LocalDate.now();
     }
 }
-

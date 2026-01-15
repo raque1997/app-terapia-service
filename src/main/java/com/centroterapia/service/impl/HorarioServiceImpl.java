@@ -1,7 +1,7 @@
-package com.centroterapia.impl;
+package com.centroterapia.service.impl;
 
 import com.centroterapia.model.entity.HorarioEntity;
-import com.centroterapia.model.Usuario;
+import com.centroterapia.model.entity.UsuarioEntity;
 import com.centroterapia.repository.HorarioRepository;
 import com.centroterapia.service.HorarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class HorarioServiceImpl implements HorarioService {
     }
 
     @Override
-    public List<HorarioEntity> getHorariosByTerapeuta(Usuario terapeuta) {
+    public List<HorarioEntity> getHorariosByTerapeuta(UsuarioEntity terapeuta) {
         return horarioRepository.findByTerapeuta(terapeuta);
     }
 

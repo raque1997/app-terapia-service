@@ -1,4 +1,4 @@
-package com.centroterapia.impl;
+package com.centroterapia.service.impl;
 
 import com.centroterapia.model.entity.MaterialEntity;
 import com.centroterapia.repository.MaterialRepository;

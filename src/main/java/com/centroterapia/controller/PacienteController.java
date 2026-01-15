@@ -1,6 +1,6 @@
 package com.centroterapia.controller;
 
-import com.centroterapia.model.Paciente;
+import com.centroterapia.model.entity.PacienteEntity;
 import com.centroterapia.service.PacienteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,21 +19,21 @@ public class PacienteController {
     private PacienteService pacienteService;
 
     @GetMapping
-    public ResponseEntity<List<Paciente>> getAllPacientes() {
+    public ResponseEntity<List<PacienteEntity>> getAllPacientes() {
         return ResponseEntity.ok(pacienteService.getAllPacientes());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Paciente> getPacienteById(@PathVariable Long id) {
+    public ResponseEntity<PacienteEntity> getPacienteById(@PathVariable Long id) {
         return pacienteService.getPacienteById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<?> createPaciente(@Valid @RequestBody Paciente paciente) {
+    public ResponseEntity<?> createPaciente(@Valid @RequestBody PacienteEntity paciente) {
         try {
-            Paciente nuevoPaciente = pacienteService.createPaciente(paciente);
+            PacienteEntity nuevoPaciente = pacienteService.createPaciente(paciente);
             return ResponseEntity.status(HttpStatus.CREATED).body(nuevoPaciente);
         } catch (Exception e) {
             e.printStackTrace(); // Log del error en consola
@@ -43,9 +43,9 @@ public class PacienteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Paciente> updatePaciente(
+    public ResponseEntity<PacienteEntity> updatePaciente(
             @PathVariable Long id,
-            @Valid @RequestBody Paciente paciente) {
+            @Valid @RequestBody PacienteEntity paciente) {
         return pacienteService.updatePaciente(id, paciente)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

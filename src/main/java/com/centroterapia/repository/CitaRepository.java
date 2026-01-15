@@ -1,8 +1,8 @@
 package com.centroterapia.repository;
 
 import com.centroterapia.model.entity.CitaEntity;
-import com.centroterapia.model.Paciente;
-import com.centroterapia.model.Usuario;
+import com.centroterapia.model.entity.PacienteEntity;
+import com.centroterapia.model.entity.UsuarioEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,9 +14,9 @@ import java.util.List;
 @Repository
 public interface CitaRepository extends JpaRepository<CitaEntity, Long> {
     
-    List<CitaEntity> findByPaciente(Paciente paciente);
+    List<CitaEntity> findByPaciente(PacienteEntity paciente);
     
-    List<CitaEntity> findByTerapeuta(Usuario terapeuta);
+    List<CitaEntity> findByTerapeuta(UsuarioEntity terapeuta);
     
     List<CitaEntity> findByEstado(CitaEntity.EstadoCita estado);
     
@@ -26,7 +26,7 @@ public interface CitaRepository extends JpaRepository<CitaEntity, Long> {
            "AND c.fechaHora BETWEEN :inicio AND :fin " +
            "AND c.estado != 'CANCELADA'")
     List<CitaEntity> findCitasByTerapeutaAndFecha(
-            @Param("terapeuta") Usuario terapeuta,
+            @Param("terapeuta") UsuarioEntity terapeuta,
             @Param("inicio") LocalDateTime inicio,
             @Param("fin") LocalDateTime fin);
     
@@ -35,6 +35,6 @@ public interface CitaRepository extends JpaRepository<CitaEntity, Long> {
     List<CitaEntity> findProximasCitas(@Param("hoy") LocalDateTime hoy);
     
     boolean existsByTerapeutaAndFechaHoraAndEstadoNot(
-            Usuario terapeuta, LocalDateTime fechaHora, CitaEntity.EstadoCita estado);
+            UsuarioEntity terapeuta, LocalDateTime fechaHora, CitaEntity.EstadoCita estado);
 }
 

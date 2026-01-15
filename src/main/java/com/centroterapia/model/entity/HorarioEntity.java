@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.centroterapia.model.Usuario;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
@@ -35,7 +34,7 @@ public class HorarioEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "terapeuta_id")
-    private Usuario terapeuta;
+    private UsuarioEntity terapeuta;
 
     @Column(name = "duracion_sesion")
     private Integer duracionSesion = 60; // en minutos
