@@ -1,7 +1,6 @@
 package com.centroterapia.service.impl;
 
 import com.centroterapia.model.entity.CitaEntity;
-import com.centroterapia.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.time.format.DateTimeFormatter;
 
 @Service
-public class EmailServiceImpl implements EmailService {
+public class EmailServiceImpl {
 
     @Autowired
     private JavaMailSender mailSender;
@@ -22,7 +21,6 @@ public class EmailServiceImpl implements EmailService {
     private static final DateTimeFormatter formatter = 
             DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-    @Override
     public void enviarConfirmacionCita(CitaEntity cita) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(fromEmail);
@@ -53,7 +51,6 @@ public class EmailServiceImpl implements EmailService {
         mailSender.send(message);
     }
 
-    @Override
     public void enviarNotificacionCancelacion(CitaEntity cita) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(fromEmail);

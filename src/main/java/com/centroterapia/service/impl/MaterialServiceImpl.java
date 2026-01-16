@@ -2,7 +2,6 @@ package com.centroterapia.service.impl;
 
 import com.centroterapia.model.entity.MaterialEntity;
 import com.centroterapia.repository.MaterialRepository;
-import com.centroterapia.service.MaterialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,7 +17,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class MaterialServiceImpl implements MaterialService {
+public class MaterialServiceImpl {
 
     @Autowired
     private MaterialRepository materialRepository;
@@ -26,32 +25,26 @@ public class MaterialServiceImpl implements MaterialService {
     @Value("${app.upload.dir:${user.home}/uploads}")
     private String uploadDir;
 
-    @Override
     public List<MaterialEntity> getAllMateriales() {
         return materialRepository.findAll();
     }
 
-    @Override
     public List<MaterialEntity> getMaterialesPublicos() {
         return materialRepository.findByVisiblePublicoTrue();
     }
 
-    @Override
     public Optional<MaterialEntity> getMaterialById(Long id) {
         return materialRepository.findById(id);
     }
 
-    @Override
     public List<MaterialEntity> getMaterialesByCategoria(MaterialEntity.Categoria categoria) {
         return materialRepository.findByCategoriaAndVisiblePublicoTrue(categoria);
     }
 
-    @Override
     public List<MaterialEntity> searchMateriales(String query) {
         return materialRepository.findByTituloContainingIgnoreCase(query);
     }
 
-    @Override
     public MaterialEntity uploadMaterial(MaterialEntity material, MultipartFile file) throws IOException {
         // Crear directorio si no existe
         Path uploadPath = Paths.get(uploadDir);
@@ -77,7 +70,6 @@ public class MaterialServiceImpl implements MaterialService {
         return materialRepository.save(material);
     }
 
-    @Override
     public Optional<MaterialEntity> updateMaterial(Long id, MaterialEntity materialDetails) {
         return materialRepository.findById(id)
                 .map(material -> {
@@ -89,7 +81,6 @@ public class MaterialServiceImpl implements MaterialService {
                 });
     }
 
-    @Override
     public boolean deleteMaterial(Long id) {
         return materialRepository.findById(id)
                 .map(material -> {

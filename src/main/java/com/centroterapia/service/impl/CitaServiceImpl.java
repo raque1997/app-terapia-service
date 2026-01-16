@@ -4,8 +4,6 @@ import com.centroterapia.model.entity.CitaEntity;
 import com.centroterapia.model.entity.PacienteEntity;
 import com.centroterapia.model.entity.UsuarioEntity;
 import com.centroterapia.repository.CitaRepository;
-import com.centroterapia.service.CitaService;
-import com.centroterapia.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,40 +12,34 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CitaServiceImpl implements CitaService {
+public class CitaServiceImpl {
 
     @Autowired
     private CitaRepository citaRepository;
 
     @Autowired
-    private EmailService emailService;
+    private EmailServiceImpl emailService;
 
-    @Override
-    public List<CitaEntity> getAllCitas() {
+    public List<CitaEntity> getAllCitasServiceImpl() {
         return citaRepository.findAll();
     }
 
-    @Override
     public Optional<CitaEntity> getCitaById(Long id) {
         return citaRepository.findById(id);
     }
 
-    @Override
     public List<CitaEntity> getCitasByPaciente(PacienteEntity paciente) {
         return citaRepository.findByPaciente(paciente);
     }
 
-    @Override
     public List<CitaEntity> getCitasByTerapeuta(UsuarioEntity terapeuta) {
         return citaRepository.findByTerapeuta(terapeuta);
     }
 
-    @Override
     public List<CitaEntity> getProximasCitas() {
         return citaRepository.findProximasCitas(LocalDateTime.now());
     }
 
-    @Override
     public CitaEntity createCita(CitaEntity cita) {
         // Verificar disponibilidad
         if (cita.getTerapeuta() != null && 
@@ -73,7 +65,6 @@ public class CitaServiceImpl implements CitaService {
         return nuevaCita;
     }
 
-    @Override
     public Optional<CitaEntity> updateCita(Long id, CitaEntity citaDetails) {
         return citaRepository.findById(id)
                 .map(cita -> {
@@ -88,7 +79,6 @@ public class CitaServiceImpl implements CitaService {
                 });
     }
 
-    @Override
     public boolean deleteCita(Long id) {
         return citaRepository.findById(id)
                 .map(cita -> {
@@ -98,12 +88,10 @@ public class CitaServiceImpl implements CitaService {
                 .orElse(false);
     }
 
-    @Override
     public List<CitaEntity> getCitasByFechaRange(LocalDateTime inicio, LocalDateTime fin) {
         return citaRepository.findByFechaHoraBetween(inicio, fin);
     }
 
-    @Override
     public boolean verificarDisponibilidad(UsuarioEntity terapeuta, LocalDateTime fechaHora) {
         return !citaRepository.existsByTerapeutaAndFechaHoraAndEstadoNot(
                 terapeuta, fechaHora, CitaEntity.EstadoCita.CANCELADA);

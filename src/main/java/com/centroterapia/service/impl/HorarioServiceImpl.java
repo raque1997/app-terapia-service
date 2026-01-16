@@ -3,7 +3,6 @@ package com.centroterapia.service.impl;
 import com.centroterapia.model.entity.HorarioEntity;
 import com.centroterapia.model.entity.UsuarioEntity;
 import com.centroterapia.repository.HorarioRepository;
-import com.centroterapia.service.HorarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,42 +11,35 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class HorarioServiceImpl implements HorarioService {
+public class HorarioServiceImpl {
 
     @Autowired
     private HorarioRepository horarioRepository;
 
-    @Override
     public List<HorarioEntity> getAllHorarios() {
         return horarioRepository.findAll();
     }
 
-    @Override
     public Optional<HorarioEntity> getHorarioById(Long id) {
         return horarioRepository.findById(id);
     }
 
-    @Override
     public List<HorarioEntity> getHorariosDisponibles() {
         return horarioRepository.findByDisponibleTrue();
     }
 
-    @Override
     public List<HorarioEntity> getHorariosByDia(DayOfWeek dia) {
         return horarioRepository.findByDiaSemanaAndDisponibleTrue(dia);
     }
 
-    @Override
     public List<HorarioEntity> getHorariosByTerapeuta(UsuarioEntity terapeuta) {
         return horarioRepository.findByTerapeuta(terapeuta);
     }
 
-    @Override
     public HorarioEntity createHorario(HorarioEntity horario) {
         return horarioRepository.save(horario);
     }
 
-    @Override
     public Optional<HorarioEntity> updateHorario(Long id, HorarioEntity horarioDetails) {
         return horarioRepository.findById(id)
                 .map(horario -> {
@@ -61,7 +53,6 @@ public class HorarioServiceImpl implements HorarioService {
                 });
     }
 
-    @Override
     public boolean deleteHorario(Long id) {
         return horarioRepository.findById(id)
                 .map(horario -> {

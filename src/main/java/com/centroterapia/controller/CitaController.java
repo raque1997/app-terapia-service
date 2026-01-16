@@ -1,7 +1,7 @@
 package com.centroterapia.controller;
 
 import com.centroterapia.model.entity.CitaEntity;
-import com.centroterapia.service.CitaService;
+import com.centroterapia.service.impl.CitaServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,11 +18,11 @@ import java.util.List;
 public class CitaController {
 
     @Autowired
-    private CitaService citaService;
+    private CitaServiceImpl citaService;
 
     @GetMapping
     public ResponseEntity<List<CitaEntity>> getAllCitas() {
-        return ResponseEntity.ok(citaService.getAllCitas());
+        return ResponseEntity.ok(citaService.getAllCitasServiceImpl());
     }
 
     @GetMapping("/{id}")

@@ -1,7 +1,7 @@
 package com.centroterapia.controller;
 
 import com.centroterapia.model.entity.HorarioEntity;
-import com.centroterapia.service.HorarioService;
+import com.centroterapia.service.impl.HorarioServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,7 @@ import java.util.List;
 public class HorarioController {
 
     @Autowired
-    private HorarioService horarioService;
+    private HorarioServiceImpl horarioService;
 
     @GetMapping
     public ResponseEntity<List<HorarioEntity>> getAllHorarios() {

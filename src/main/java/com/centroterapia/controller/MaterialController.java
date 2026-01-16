@@ -1,7 +1,7 @@
 package com.centroterapia.controller;
 
 import com.centroterapia.model.entity.MaterialEntity;
-import com.centroterapia.service.MaterialService;
+import com.centroterapia.service.impl.MaterialServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -23,7 +23,7 @@ import java.util.List;
 public class MaterialController {
 
     @Autowired
-    private MaterialService materialService;
+    private MaterialServiceImpl materialService;
 
     @GetMapping
     public ResponseEntity<List<MaterialEntity>> getAllMateriales() {

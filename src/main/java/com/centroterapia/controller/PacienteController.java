@@ -1,7 +1,7 @@
 package com.centroterapia.controller;
 
 import com.centroterapia.model.entity.PacienteEntity;
-import com.centroterapia.service.PacienteService;
+import com.centroterapia.service.impl.PacienteServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +16,7 @@ import java.util.List;
 public class PacienteController {
 
     @Autowired
-    private PacienteService pacienteService;
+    private PacienteServiceImpl pacienteService;
 
     @GetMapping
     public ResponseEntity<List<PacienteEntity>> getAllPacientes() {
